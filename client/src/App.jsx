@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { Suspense } from 'react'
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 
-export default function  App() {
+import Navbar from './components/Navbar/Navbar'
+import LoadingSpinner from './components/LoadingEffect/LoadingSpinner';
+
+const Home = React.lazy(() => import('./pages/Home/Home'));
+
+export default function App() {
   return (
-    <div className="text-3xl font-bold underline" >App</div>
+    <BrowserRouter>
+      <Navbar />
+
+      <Suspense fallback={
+        <LoadingSpinner />
+      }>
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   )
 }
