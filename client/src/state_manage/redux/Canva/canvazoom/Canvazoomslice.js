@@ -9,15 +9,23 @@ const Canvazoomslice = createSlice({
     initialState,
     reducers:{
         CanvaZoomIn:(state) =>{
-         state.canvazoomlevel = Math.min(state.canvazoomlevel + 0.1, 2);
+         state.canvazoomlevel = Math.min(state.canvazoomlevel + 0.1, 15);
         },
 
         CanvaZoomOut: (state)=>{
-         state.canvazoomlevel = Math.min(state.canvazoomlevel - 0.1, 2);
+        if(state.canvazoomlevel !== 0){
+            state.canvazoomlevel = Math.min(state.canvazoomlevel - 0.1, 15);
+        }
+        },
+
+        onchangeCanvazoom: (state,action)=>{
+            // if(state.canvazoomlevel !== 0){
+                state.canvazoomlevel = parseInt(action.payload);
+            // }
         }
     }
 })
 
-export const {CanvaZoomIn,CanvaZoomOut} = Canvazoomslice.actions;
+export const {CanvaZoomIn,CanvaZoomOut,onchangeCanvazoom} = Canvazoomslice.actions;
 export default Canvazoomslice.reducer;
 
